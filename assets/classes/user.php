@@ -39,12 +39,13 @@ class User{
 								if(mysqli_num_rows($checkUser) == 1){
 
 									$interval = $today->diff($timeParked);
+									$day = $interval->format('%d');
 									$hour = $interval->format('%h');
 									$minutes = $interval->format('%i');
 
 									$today = $today->format("Y-m-d H:i:s");
 
-									if($hour > 0 && $minutes > 20){
+									if($day > 0 && $hour > 0 && $minutes > 20){
 										$con->query("UPDATE regPlates SET confirmed = 1, confirmationTime = '$today', ticketType = 1 WHERE userId = $crp->userId");
 									}else{
 										$con->query("UPDATE regPlates SET confirmed = 1, confirmationTime = '$today', ticketType = 3 WHERE userId = $crp->userId");
