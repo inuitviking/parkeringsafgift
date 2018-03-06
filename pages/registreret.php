@@ -6,18 +6,23 @@ Simplified down to just seconds and to redirect after five seconds back to the p
 <main>
 	<center>
 
+		<!--Countdown er her-->
 		<h1 id="countdowntimertxt" class="countdowntimer">0</h1>
 
 <?php
-error_reporting(E_ALL ^ E_NOTICE);
+#eksisterer s parameteren og er den lige med processed
 if(isset($_GET['s']) && $_GET['s'] == 'processed'){
 
+	#kalder vi CRUD class
 	$user = new CRUD();
 
+	#Hvis id paramteren eksisterer
 	if(isset($_GET['id'])){
 
+		#sætter vi den i en variabel
 	 	$userId = $_GET['id'];
 
+		#Vi laver en array med de kolonner vi skal bruger fra DB
 		$uArr = [
 			"regPlates.regPlate",
 			"regPlates.confirmationTime",
@@ -26,9 +31,13 @@ if(isset($_GET['s']) && $_GET['s'] == 'processed'){
 			"user.lastname"
 		];
 
+		#Vi bruger Read metoden fra CRUD class til at læse både user og regPlates tabllerne
 		$uResult = $user->Read('regPlates', $uArr, "INNER JOIN user ON regPlates.userId=user.id WHERE regPlates.userID = $userId");
+		#Kører det igennem en while loop
 		while($u = $uResult->fetch_object()){
+			#putter confirmationTime fra databasen i en DateTime variable
 			$date = new DateTime($u->confirmationTime);
+			#Switch til at sige om man har fået bøde eller ej
 			switch ($u->ticketType) {
 				case NULL:
 					$i='Nej';
@@ -41,7 +50,7 @@ if(isset($_GET['s']) && $_GET['s'] == 'processed'){
 					break;
 			}
 ?>
-
+<!-- Skriver alt ud i HTML -->
 		<p>Tak <?=$u->firstname." ".$u->lastname?></p>
 		<p>Din parkering er registreret den	<?=$date->format("j / n");?></p>
 		<p>Klokken <?=$date->format("G:i"); ?></p>
@@ -50,18 +59,21 @@ if(isset($_GET['s']) && $_GET['s'] == 'processed'){
 
 <?php
 		}
-
+#hvis id parameteren ikke eksisterer, tager vi regPlate parameteren
 	}elseif($_GET['regPlate']){
-
+		#putter den i en variabel
 		$regPlate = $_GET['regPlate'];
-
+		#laver en array af de kolonner vi skal bruge
 		$uArr = [
 			"regPlate",
 			"confirmationtime"
 		];
-
+		#Læser regPlates tabellen hvor regPlate er lige med nummerpladen der blev skrevet ind
 		$uResult = $user->Read('regPlates', $uArr, "WHERE regPlate = '$regPlate'");
 
+		#Kører det igennem en while loop
+		#hvor vi gør det samme hvis id parameteren var der
+		#bare uden brugerens navn
 		while($u = $uResult->fetch_object()){
 			$date = new DateTime($u->confirmationTime);
 			switch ($u->ticketType) {
@@ -91,6 +103,7 @@ if(isset($_GET['s']) && $_GET['s'] == 'processed'){
 
 ?>
 
+<!-- nedtæller tager fra stackoverflow. Credit er øverst -->
 <script type="text/javascript">
 var sTime = new Date().getTime();
 var countDown = 5; // Number of seconds to count down from.

@@ -17,19 +17,26 @@ while($id = $regID->fetch_object()){
 
 $regPlate = $crud->Read('regPlates', ['id','regPlate'], "WHERE userId=$uId LIMIT 1");
 
-while($u = $regPlate->fetch_object()){
+if(mysqli_num_rows($regPlate) == 1){
 
-?>
+	while($u = $regPlate->fetch_object()){
 
-	<label for="regPlate">Din nuværende nummerplade: <?=$u->regPlate ?><br>Ændr</label>
-	<input type="text" name="regPlate" placeholder="<?=$u->regPlate?>"><br>
-	<input type="submit" name="change" value="Ændre">
-<?php
+	?>
+
+		<label for="regPlate">Din nuværende nummerplade: <?=$u->regPlate ?><br>Ændr</label>
+		<input type="text" name="regPlate" placeholder="<?=$u->regPlate?>"><br>
+		<input type="submit" name="change" value="Ændre">
+	<?php
+
+	}
+
+}else{
+
+	echo "Du har ingen bil tilknyttet dig.";
 
 }
 
-?>
-
+	?>
 	</form>
 
 </main>

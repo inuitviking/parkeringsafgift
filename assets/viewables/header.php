@@ -5,8 +5,9 @@
 	<head>
 
 <?php
-
+// hvis brugeren har trykket på log af
 if(isset($_GET['logoff'])){
+	// ødeleg sessionen
 	session_destroy();
 }
 

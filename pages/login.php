@@ -2,6 +2,7 @@
 
 	<?php
 
+	#Fejlmeldinger via e parameteren
 	if(isset($_GET['e'])){
 
 		switch ($_GET['e']) {
@@ -29,6 +30,7 @@
 
 	?>
 
+	<!-- En formular til at logge sig ind med -->
 	<form action="" method="post">
 
 		<label for="username">Brugernavn</label>
@@ -43,12 +45,16 @@
 
 	<?php
 
+#Hvis brugeren har trykket Log ind
 if(isset($_POST['login'])){
 
+	// Put $_POST values i varabler
 	$username = $_POST['username'];
 	$password = $_POST['password'];
+	// Kald User class
 	$user = new User();
-	echo $user->Login($username, $password);
+	// Brug Login metoden til at logge brugeren ind
+	$user->Login($username, $password);
 
 }
 

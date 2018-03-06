@@ -1,5 +1,6 @@
 <?php
 
+// Kig på comments i user.php
 if(isset($_SESSION['uId'])){
 
 
