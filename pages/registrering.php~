@@ -1,0 +1,30 @@
+<main>
+
+	<h1>Velkommen til EUC Syd Sønderborg</h1>
+	<p>Skriv venligst din nummerplade, så du kan få den registreret</p>
+
+<?php
+
+ ?>
+
+	<form action="assets/handling/registration.php" method="post">
+		<h2>Til gæster</h2>
+		<label for="registrationPlate">Nummerplade</label>
+		<input type="text" name="registrationPlate" maxlength="7" placeholder="f.eks. AB01001">
+		<input type="submit" name="guest" value="Registrer">
+
+	</form>
+
+	<h2>Remove this shit xD</h2>
+
+	<form action="assets/handling/registration.php" method="post">
+		<h2>Til elever og kursister</h2>
+		<label for="username">Brugernavn</label>
+		<input type="text" name="username" placeholder="dit brugernavn">
+		<label for="password">Kodeord</label>
+		<input type="password" name="password" placeholder="dit kodeord">
+		<input type="submit" name="user" value="Registrer">
+
+	</form>
+
+</main>
